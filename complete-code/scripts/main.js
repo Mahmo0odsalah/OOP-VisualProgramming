@@ -68,7 +68,10 @@
     let code = Blockly.JavaScript.workspaceToCode(Blockly.getMainWorkspace());
     try {
       // eval(code);
-      console.log(JSON.parse(code.substring(0,code.length-1)))
+      var classHierarchy = code.substring(0,code.length-1).split("$")
+      classHierarchy = classHierarchy.map(ele => JSON.parse(ele))
+      Draw(classHierarchy)
+
     } catch (error) {
       console.log(error);
     }
@@ -79,9 +82,68 @@
   document.querySelector('#save').addEventListener('click', handleSave);
 
   enableEditMode();
+  function Draw(classHierarchy){
+    var preview = document.getElementById("overlaycontainer")
+    var classElement = document.createElement("div")
+    for(var key in classHierarchy[0]){
+      if(key != "children"){
+        var elem = document.createElement("h1")
+        elem.className = "level-1 rectangle"
+        if(key === "name"){
+          elem.textContent =classHierarchy[0][key].replaceAll('\'','')
+        }
+        else{
+          elem.textContent = key +": "+ classHierarchy[0][key].replaceAll('\'','')
+        }
+        classElement.appendChild(elem)
+      }
+    }
 
+    var childrenWrapper = document.createElement("ol")
+    childrenWrapper.className = "level-2-wrapper"
+    classHierarchy[0].children.forEach(child =>{
+      var childElement = document.createElement("li")
+      classElement.appendChild(childrenWrapper)
+      childrenWrapper.appendChild(childElement)
+      
+      for(var key in child){
+        if(key != "children"){
+          var childElementSub = document.createElement("h2")
+          childElement.appendChild(childElementSub)
+          childElementSub.className = "level-2 rectangle"
+          if(key === "name"){
+            childElementSub.textContent =child[key].replaceAll('\'','')
+          }
+          else{
+            childElementSub.textContent = key +": "+ child[key].replaceAll('\'','')
+          }
+        }
+      }
+      var grandchildrenWrapper = document.createElement("ol")
+      grandchildrenWrapper.className = "level-3-wrapper"
+      child.children.forEach(grandchild => {
+        var grandchildElement = document.createElement("li")
+        childElement.appendChild(grandchildrenWrapper)
+        grandchildrenWrapper.appendChild(grandchildElement)
+        
+        for(var key in grandchild){
+          if(key != "children"){
+            var grandchildElementSub = document.createElement("h3")
+            grandchildElement.appendChild(grandchildElementSub)
+            grandchildElementSub.className = "level-3 rectangle"
+            if(key === "name"){
+              grandchildElementSub.textContent =grandchild[key].replaceAll('\'','')
+            }
+            else{
+              grandchildElementSub.textContent = key +": "+ grandchild[key].replaceAll('\'','')
+            }
+          }
+      }});
+    })
+    preview.appendChild(classElement)
+  }
   Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox'),
-    scrollbars: false,
+    scrollbars: true,
   });
 })();

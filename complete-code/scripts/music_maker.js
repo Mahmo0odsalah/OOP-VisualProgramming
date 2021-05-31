@@ -53,6 +53,16 @@ Blockly.JavaScript['class'] = function(block) {
       for (var key in child){
         child_json[key] = child[key]
       }
+      var grandchildren = []
+      child.children.forEach(grandchild => {
+        for(var daddykey in child_json){
+          if(grandchild[daddykey] === undefined && daddykey !== "name" && daddykey !== "children"){
+            grandchild[daddykey] = child_json[daddykey]
+          }
+        }
+        grandchildren = grandchildren.concat([grandchild])
+      });
+      child_json.children = grandchildren
       code.children= code.children.concat([child_json])
     }
   })

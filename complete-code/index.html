@@ -26,7 +26,11 @@
     <div class="maker">
       <div>
         <div class="button mdl-color--amber-500" id="build_blocks">Build Blocks</div>
-        <div class="button mdl-color--yellow-500" id="preview_classes">Preview Classes</div>
+        <div  onclick="on()" class="button mdl-color--yellow-500" id="preview_classes">Preview Classes
+         
+
+        </div>
+
       </div>
     </div>
 
@@ -53,7 +57,51 @@
       </xml>
     </div>
   </main>
+  <style>
+    #overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2;
+      cursor: pointer;
+      overflow: scroll;
+    }
+    
+    #text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 50px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+    </style>
+    </head>
+    <body>
+    
+    <div id="overlay" onclick="off()">
+      <div id="overlaycontainer" class="container">
 
+      </div>
+    </div>
+    
+    <script>
+    function on() {
+      document.getElementById("overlay").style.display = "block";
+    }
+    
+    function off() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("overlaycontainer").innerHTML =''
+    }
+    </script>
   <script src="https://unpkg.com/blockly"></script>
   <script src="scripts/music_maker.js"></script>
   <script src="scripts/sound_blocks.js"></script>
