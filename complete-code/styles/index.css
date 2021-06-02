@@ -1,5 +1,5 @@
 main {
-  width: 400px;
+  /* width: 400px; */
   position: relative;
   margin: 0 auto;
   overflow:hidden;
@@ -38,7 +38,7 @@ h1 {
   left: -400px;
   transition: left .4s;
   height: 460px;
-  width: 400px;
+  width: 900px;
   background-color: #eee;
 }
 
@@ -52,6 +52,8 @@ h1 {
   justify-content: space-between;
   height: 460px;
   width: 400px;
+  float: right;
+  margin: 30px;
 }
 
 .maker > div {

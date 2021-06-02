@@ -23,9 +23,9 @@
     <button class="mode-maker mdl-button" style="display: none;" id="edit">Edit</button>
     <button class="mode-edit mdl-button mdl-js-button" style="display: none;" id="done">Done</button>
 
-    <div class="maker">
+    <div class="maker" id="maker">
       <div>
-        <div class="button mdl-color--amber-500" id="build_blocks">Build Blocks</div>
+        <div class="button build-blocks mdl-color--amber-500" id="build_blocks">Build Blocks</div>
         <div  onclick="on()" class="button mdl-color--yellow-500" id="preview_classes">Preview Classes
          
 
@@ -35,7 +35,7 @@
     </div>
 
     <div class="blockly-editor">
-      <div id="blocklyDiv" style="height: 480px; width: 400px;"></div>
+      <div id="blocklyDiv" style="height: 480px;"></div>
 
       <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
         <block type="class"></block>
@@ -95,11 +95,13 @@
     <script>
     function on() {
       document.getElementById("overlay").style.display = "block";
+      document.getElementById("blocklyDiv").style.display = "none"
     }
     
     function off() {
       document.getElementById("overlay").style.display = "none";
       document.getElementById("overlaycontainer").innerHTML =''
+      document.getElementById("maker").style.display = ""
     }
     </script>
   <script src="https://unpkg.com/blockly"></script>

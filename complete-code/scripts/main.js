@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
  (function() {
-
   let currentButton;
 
   function handlePlay(event) {
@@ -22,6 +21,9 @@
 
   function loadWorkspace(button) {
     let workspace = Blockly.getMainWorkspace();
+    console.log(button.id)
+    document.getElementById("blocklyDiv").style.display = ""
+    document.getElementById("maker").style.display = "none"
     workspace.clear();
     if (button.blocklyXml) {
       Blockly.Xml.domToWorkspace(button.blocklyXml, workspace);
@@ -34,6 +36,8 @@
 
   function handleSave() {
     document.body.setAttribute('mode', 'edit');
+    document.getElementById("blocklyDiv").style.display = "none"
+    document.getElementById("maker").style.display = ""
     save(currentButton);
   }
 
@@ -50,7 +54,7 @@
 
   function enableMakerMode() {
     document.body.setAttribute('mode', 'maker');
-    document.querySelectorAll('.button').forEach(btn => {
+    document.querySelectorAll('.build-blocks').forEach(btn => {
       btn.addEventListener('click', handlePlay);
       btn.removeEventListener('click', enableBlocklyMode);
     });
@@ -144,6 +148,8 @@
   }
   Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox'),
-    scrollbars: true,
+    scrollbars: false,
   });
+  document.getElementsByClassName("blocklyScrollbarVertical")[0].remove()
+
 })();
